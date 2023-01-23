@@ -35,7 +35,7 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      * @ORM\Column(type="string")
      */
-    private $password;
+    private $motPasse;
 
     /**
      * @ORM\Column(type="string", length=80)
@@ -62,10 +62,6 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $pseudo;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $motPasse;
 
     /**
      * @ORM\Column(type="boolean")
@@ -156,14 +152,14 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @see PasswordAuthenticatedUserInterface
      */
-    public function getPassword(): string
+    public function getMotPasse(): string
     {
-        return $this->password;
+        return $this->motPasse;
     }
 
-    public function setPassword(string $password): self
+    public function setMotPasse(string $motPasse): self
     {
-        $this->password = $password;
+        $this->motPasse = $motPasse;
 
         return $this;
     }
@@ -248,17 +244,6 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getMotPasse(): ?string
-    {
-        return $this->motPasse;
-    }
-
-    public function setMotPasse(string $motPasse): self
-    {
-        $this->motPasse = $motPasse;
-
-        return $this;
-    }
 
     public function isAdministrateur(): ?bool
     {
