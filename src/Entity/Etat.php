@@ -27,11 +27,11 @@ class Etat
     /**
      * @ORM\OneToMany(targetEntity=Sortie::class, mappedBy="etat")
      */
-    private $sortie;
+    private $sorties;
 
     public function __construct()
     {
-        $this->sortie = new ArrayCollection();
+        $this->sorties = new ArrayCollection();
     }
 
  
@@ -56,15 +56,15 @@ class Etat
     /**
      * @return Collection<int, Sortie>
      */
-    public function getSortie(): Collection
+    public function getSorties(): Collection
     {
-        return $this->sortie;
+        return $this->sorties;
     }
 
     public function addSortie(Sortie $sortie): self
     {
-        if (!$this->sortie->contains($sortie)) {
-            $this->sortie[] = $sortie;
+        if (!$this->sorties->contains($sortie)) {
+            $this->sorties[] = $sortie;
             $sortie->setEtat($this);
         }
 
@@ -73,7 +73,7 @@ class Etat
 
     public function removeSortie(Sortie $sortie): self
     {
-        if ($this->sortie->removeElement($sortie)) {
+        if ($this->sorties->removeElement($sortie)) {
             // set the owning side to null (unless already changed)
             if ($sortie->getEtat() === $this) {
                 $sortie->setEtat(null);

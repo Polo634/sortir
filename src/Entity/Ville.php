@@ -25,18 +25,18 @@ class Ville
     private $nom;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=20)
      */
     private $codePostal;
 
     /**
      * @ORM\OneToMany(targetEntity=Lieu::class, mappedBy="ville")
      */
-    private $lieu;
+    private $lieux;
 
     public function __construct()
     {
-        $this->lieu = new ArrayCollection();
+        $this->lieux = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -71,15 +71,15 @@ class Ville
     /**
      * @return Collection<int, Lieu>
      */
-    public function getLieu(): Collection
+    public function getLieux(): Collection
     {
-        return $this->lieu;
+        return $this->lieux;
     }
 
     public function addLieu(Lieu $lieu): self
     {
-        if (!$this->lieu->contains($lieu)) {
-            $this->lieu[] = $lieu;
+        if (!$this->lieux->contains($lieu)) {
+            $this->lieux[] = $lieu;
             $lieu->setVille($this);
         }
 
@@ -88,7 +88,7 @@ class Ville
 
     public function removeLieu(Lieu $lieu): self
     {
-        if ($this->lieu->removeElement($lieu)) {
+        if ($this->lieux->removeElement($lieu)) {
             // set the owning side to null (unless already changed)
             if ($lieu->getVille() === $this) {
                 $lieu->setVille(null);
