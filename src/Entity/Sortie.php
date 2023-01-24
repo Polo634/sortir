@@ -6,6 +6,7 @@ use App\Repository\SortieRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=SortieRepository::class)
@@ -21,11 +22,16 @@ class Sortie
 
     /**
      * @ORM\Column(type="string", length=80)
+     * @Assert\NotBlank(message="Merci d'entrer un libellé pour cette sortie")
+     * @Assert\Length(min=2, max=80, minMessage="Merci d'entrer au minimum 2 caractères",
+     *     maxMessage="Le nombre de caractères est limité à 80")
      */
     private $nom;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\DateTime
+     * @var string A "Y-m-d H:i:s" formatted value
      */
     private $dateHeureDebut;
 
@@ -36,11 +42,13 @@ class Sortie
 
     /**
      * @ORM\Column(type="date")
+     * @Assert\GreaterThanOrEqual(propertyPath="dateHeureDebut")
      */
     private $dateLimiteInscription;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\PositiveOrZero
      */
     private $nbInscriptionsMax;
 

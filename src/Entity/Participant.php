@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ParticipantRepository::class)
@@ -23,6 +24,7 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\Email(message = "L'email '{{ mail }}' n'est pas valide.") //regex
      */
     private $mail;
 
@@ -35,11 +37,17 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=80)
+     * @Assert\NotBlank(message="Merci d'entrer votre nom")
+     * @Assert\Length(min=2, max=80, minMessage="Merci d'entrer au minimum 2 caractères",
+     *     maxMessage="Le nombre de caractères est limité à 80")
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=80)
+     * @Assert\NotBlank(message="Merci d'entrer votre prénom")
+     * @Assert\Length(min=2, max=80, minMessage="Merci d'entrer au minimum 2 caractères",
+     *     maxMessage="Le nombre de caractères est limité à 80")
      */
     private $prenom;
 
@@ -50,7 +58,7 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
 
 
     /**
-     * @ORM\Column(type="string", length=80, unique=true)
+     * @ORM\Column(type="string", length=80, unique=true)//regex
      */
     private $pseudo;
 
