@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+{% block title %} {{ parent() }}{% endblock %}
+{% block header %} {% endblock %}
+
+{% block body %}
+    <div class="containerLogin">
+        <form method="post" class="formulaireLogin">
+            {% if error %}
+                <div class="alert alert-danger">Identifiant ou mot de passe incorrect, merci de réessayer !</div>
+            {% endif %}
+            <p>
+                <label for="inputEmail" class="idMdp">Identifiant :</label>
+                <input type="text" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus placeholder="Entrer votre email ou pseudo">
+            </p>
+
+            <p>
+                <label for="inputPassword" class="idMdp">Mot de passe :</label>
+                <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required placeholder="Entrer votre mot de passe"><br>
+            </p>
+
+            <input type="hidden" name="_csrf_token"
+                   value="{{ csrf_token('authenticate') }}"
+            >
+
+                <div class="checkbox mb-3">
+                    <label class="rememberMe" for="_remember_me">Se souvenir de moi
+                         <input type="checkbox" name="_remember_me">
+                    </label>
+                </div>
+
+            <div>
+                <a href="{{ path("app_forgot_password_request") }}" title="reset password" class="mdpOublie">Mot de passe oublié ?</a>
+            </div>
+
+            <button class="btn btn-lg btn-primary" type="submit">
+                Connexion
+            </button>
+        </form>
+    </div>
+{% endblock %}
+
+
