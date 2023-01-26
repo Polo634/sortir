@@ -1,0 +1,68 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:wght@300&family=Dancing+Script&family=Moulpali&family=Oswald:wght@300;600&family=Roboto+Mono:ital,wght@1,100&display=swap');
+body{
+    font-family: 'Garamond', sans-serif;
+    font-size: 1.2em;
+    margin: 0;
+}
+.containerLogin{
+    display: flex;
+    justify-content: center;
+    margin-top: 150px;
+}
+
+.formulaireLogin{
+    background: #a3aa92;
+    width:600px;
+    height: auto;
+    padding: 60px;
+    border: 1px solid #f1f1f1;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+.idMdp{
+    font-size: 1.5em;
+    text-decoration: underline;
+}
+
+input{
+    flex-direction: row;
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.rememberMe{
+    font-size: 1.3em;
+}
+
+.mdpOublie{
+    color: blue;
+    font-size: 1.1em;
+    text-decoration: none;
+}
+.mdpOublie:hover{
+    text-decoration: underline;
+}
+
+.btn-primary {
+    font-size: 1.5em;
+    background-color: white ;
+    color: black;
+    padding: 14px 30px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+.btn-primary:hover {
+    background-color: #5a6049;
+    color: black;
+}
+
+.alert-danger {
+    color: red;
+    font-weight: bold;
+}

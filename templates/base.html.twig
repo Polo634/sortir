@@ -14,8 +14,10 @@
     <body>
         <div class="container">
             <header>
-                <h1>Sortir.com</h1>
-                {% include('inc/nav.html.twig') %}
+                {% block header %}
+                    <h1>Sortir.com</h1>
+                    {% include('inc/nav.html.twig') %}
+                {% endblock %}
             </header>
             <main>
                 {% block body %}{% endblock %}
