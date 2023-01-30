@@ -26,65 +26,64 @@ class Sortie
      * @Assert\Length(min=2, max=80, minMessage="Merci d'entrer au minimum 2 caractères",
      *     maxMessage="Le nombre de caractères est limité à 80")
      */
-    private $nom;
+    private ?string $nom;
 
     /**
      * @ORM\Column(type="datetime")
      * @Assert\DateTime
-     * @var string A "Y-m-d H:i:s" formatted value
      */
-    private $dateHeureDebut;
+    private ?\DateTimeInterface $dateHeureDebut;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $duree;
+    private ?int $duree;
 
     /**
      * @ORM\Column(type="date")
      * @Assert\GreaterThanOrEqual(propertyPath="dateHeureDebut")
      */
-    private $dateLimiteInscription;
+    private ?\DateTimeInterface $dateLimiteInscription;
 
     /**
      * @ORM\Column(type="integer")
      * @Assert\PositiveOrZero
      */
-    private $nbInscriptionsMax;
+    private ?int $nbInscriptionsMax;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    private $infosSortie;
+    private ?string $infosSortie;
 
     /**
      * @ORM\ManyToOne(targetEntity=Etat::class, inversedBy="sorties")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $etat;
+    private ?Etat $etat;
 
     /**
      * @ORM\ManyToOne(targetEntity=Lieu::class, inversedBy="sorties")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $lieu;
+    private ?Lieu $lieu;
 
     /**
      * @ORM\ManyToOne(targetEntity=Campus::class, inversedBy="sorties")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $campus;
+    private ?Campus $campus;
 
     /**
      * @ORM\ManyToMany(targetEntity=Participant::class, mappedBy="inscriptions")
      */
-    private $participants;
+    private Collection $participants;
 
     /**
      * @ORM\ManyToOne(targetEntity=Participant::class, inversedBy="sortiesOrganisees")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $organisateur;
+    private ?Participant $organisateur;
 
     public function __construct()
     {

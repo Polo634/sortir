@@ -22,7 +22,7 @@ class Etat
 
     /**
      * @ORM\Column(type="string", length=50)
-     * @Assert\Choice(choices={"Créée", "Ouverte", "Clôturée", "Activité en cours", "Passée", "Annulée"})
+     * @Assert\Choice(choices={"Créée", "Ouverte", "Clôturée", "Activité en cours", "Passée", "Annulée", "Historisée"})
      */
     private $libelle;
 

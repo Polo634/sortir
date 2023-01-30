@@ -3,8 +3,10 @@
 namespace App\Repository;
 
 use App\Entity\Sortie;
+use App\Models\Filtre;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+
 
 /**
  * @extends ServiceEntityRepository<Sortie>
@@ -39,28 +41,45 @@ class SortieRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Sortie[] Returns an array of Sortie objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('s')
-//            ->andWhere('s.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('s.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    /**
+     *  récupère les sorties en fonction des filtres
+     * @return Sortie[]
+     */
+    public function findSearch(Filtre $filtre): array
+    {
+        $queryBuilder = $this
+            ->createQueryBuilder('s')
+            ->join('s.etat', 'e')
+            ->andWhere('e.libelle != \'Historisée\'');
 
-//    public function findOneBySomeField($value): ?Sortie
-//    {
-//        return $this->createQueryBuilder('s')
-//            ->andWhere('s.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+
+        if (!empty($filtre->campus)){
+            $queryBuilder
+                ->andWhere('s.campus = :campus')
+                ->setParameter('campus' , $filtre->campus);
+
+
+        }
+
+        if (!empty($filtre->q)){
+           $queryBuilder
+               ->andWhere('s.nom LIKE :q')
+               ->setParameter('q', "%{$filtre->q}%");
+        }
+        if (!empty($filtre->firstDate)&&($filtre->lastDate)){
+            $queryBuilder
+                ->where('s.dateHeureDebut BETWEEN :firstDate AND :lastDate')
+                ->setParameter('firstDate', $filtre->firstDate->format('Y-m-d') . ' 00:00:00')
+                ->setParameter('lastDate', $filtre->lastDate->format('Y-m-d') . ' 23:59:59');
+        }elseif (!empty($filtre->firstDate) && empty($filtre->lastDate)){
+            $queryBuilder
+                ->where('s.dateHeureDebut BETWEEN :firstDate AND :lastDate')
+                ->setParameter('firstDate', $filtre->firstDate->format('Y-m-d') . ' 00:00:00')
+                ->setParameter('lastDate', new \DateTime('2030-12-31'));
+        }
+
+        return $queryBuilder
+            ->getQuery()->getResult();
+    }
+
 }

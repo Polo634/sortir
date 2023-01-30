@@ -2,8 +2,14 @@
 
 namespace App\Controller;
 
+use App\Form\FiltreType;
+use App\Models\Filtre;
+use App\Repository\CampusRepository;
+use App\Repository\SortieRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Response;
 
 class MainController extends AbstractController
 {
@@ -12,8 +18,22 @@ class MainController extends AbstractController
      * @Route ("/home", name="main_home")
      */
 
-    public function home()
+    public function home(SortieRepository $sortieRepository,
+                         CampusRepository $campusRepository,
+                         Request $request): Response
     {
-        return $this->render("main/home.html.twig");
+
+        $campus = $campusRepository->findAll();
+
+        $filtre = new Filtre();
+        $form = $this->createForm(FiltreType::class, $filtre);
+        $form->handleRequest($request);
+        $sorties = $sortieRepository->findSearch($filtre);
+        return $this->render('sorties/list.html.twig', [
+            "sorties" => $sorties,
+            "campus" => $campus,
+            'form' => $form->createView(),
+            ]);
     }
+
 }

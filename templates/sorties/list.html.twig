@@ -1,0 +1,94 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+Liste des sorties | {{ parent() }}
+{% endblock %}
+
+{% block body %}
+
+    <section class="filtres">
+    <h2>Filtrer les sorties</h2>
+
+
+        {{ form_start(form, {attr: {class: 'filter'}}) }}
+        <div class="left">
+            {{ form_label(form.campus) }}
+            {{ form_widget(form.campus) }}
+
+            {{ form_label(form.q) }}
+            {{ form_widget(form.q) }}
+
+            {{ form_label(form.firstDate) }}
+            {{ form_widget(form.firstDate) }}
+            {{ form_label(form.lastDate) }}
+            {{ form_widget(form.lastDate) }}
+        </div>
+
+        <div class="right">
+
+
+            {{ form_widget(form.organisateur) }}
+            {{ form_label(form.organisateur) }}
+
+
+            {{ form_widget(form.inscrit) }}
+            {{ form_label(form.inscrit) }}
+
+
+            {{ form_widget(form.pasInscrit) }}
+            {{ form_label(form.pasInscrit) }}
+
+
+            {{ form_widget(form.sortiesPassees) }}
+            {{ form_label(form.sortiesPassees) }}
+
+        </div>
+
+        <button type="submit" class="btn btn-primary w-30">Rechercher</button>
+
+        {{ form_end(form) }}
+
+
+    </section>
+
+    <section class="tableau" >
+
+        <table class="table table-bordered border-primary">
+
+            <thead>
+            <tr>
+                <th scope="col" class="border border-dark">Nom de la sortie</th>
+                <th scope="col" class="border border-dark">Date de la sortie</th>
+                <th scope="col" class="border border-dark">Clôture</th>
+                <th scope="col" class="border border-dark">inscrits/places</th>
+                <th scope="col" class="border border-dark">Etat</th>
+                <th scope="col" class="border border-dark">Inscrit</th>
+                <th scope="col" class="border border-dark">Organisateur</th>
+                <th scope="col" class="border border-dark">Actions</th>
+            </tr>
+            </thead>
+                <tbody>
+                {% for sortie in sorties %}
+                <tr>
+
+                    <td class="border border-dark">{{ sortie.nom }}</td>
+                    <td class="border border-dark">{{ sortie.dateHeureDebut |date('d/m/y H:i') }}</td>
+                    <td class="border border-dark">{{ sortie.dateLimiteInscription | date('d/m/y') }}</td>
+                    <td class="border border-dark">{{ sortie.participants | length }}/{{ sortie.nbInscriptionsMax }}</td>
+                    <td class="border border-dark">{{ sortie.etat.libelle }}</td>
+                    <td class="border border-dark">?</td>
+                    <td class="border border-dark">{{ sortie.organisateur.nom }}</td>
+                    <td class="border border-dark">Actions</td>
+
+                </tr>
+                </tbody>
+            {% endfor %}
+        </table>
+
+
+
+    </section>
+
+
+
+{% endblock %}
