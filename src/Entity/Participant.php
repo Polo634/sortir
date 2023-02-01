@@ -13,7 +13,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ParticipantRepository::class)
- * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
+ * @UniqueEntity(fields={"mail"}, message="Cet email est déja utilisé")
+ * @UniqueEntity(fields={"pseudo"}, message="ce pseudo est déjà utilisé")
  */
 class Participant implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -36,6 +37,15 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="string")
      */
     private $motPasse;
+
+
+    /**
+     * @var string The hashed password
+     * @ORM\Column(type="string",nullable=true)
+     * @Assert\Length(min=6, minMessage="Votre mot de passe doit faire au moins 6 caractères !")
+     */
+    private $newPassword;
+
 
     /**
      * @ORM\Column(type="string", length=80)
@@ -91,10 +101,12 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $sortiesOrganisees;
 
+
     public function __construct()
     {
         $this->inscriptions = new ArrayCollection();
         $this->sortiesOrganisees = new ArrayCollection();
+
     }
 
     public function getId(): ?int
@@ -121,7 +133,7 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUserIdentifier(): string
     {
-        return (string) $this->mail;
+        return (string)$this->mail;
     }
 
     /**
@@ -129,7 +141,7 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUsername(): string
     {
-        return (string) $this->mail;
+        return (string)$this->mail;
     }
 
 
@@ -152,6 +164,19 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    public function getNewPassword(): ?string
+    {
+        return $this->newPassword;
+    }
+
+    public function setNewPassword(string $newPassword): self
+    {
+        $this->newPassword = $newPassword;
+
+        return $this;
+    }
+
 
     /**
      * Returning a salt is only needed, if you are not using a modern
@@ -313,8 +338,9 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getRoles():array
+    public function getRoles(): array
     {
         return $this->administrateur ? ['ROLE_ADMIN'] : ['ROLE_USER'];
     }
+
 }

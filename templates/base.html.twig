@@ -12,16 +12,24 @@
 
         <link rel="stylesheet" href="{{ asset('css/normalize.css') }}">
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+        <link rel="icon" href="{{ asset('img/icon.png') }}">
 
     </head>
     <body>
         <div class="container">
             <header>
                 {% block header %}
-                    <h1>Sortir.com</h1>
+                    <h1 class="logo"><a href="{{ path('main_home') }}"><img src="{{ asset("img/icon.png") }}" alt="Sortir.com" title="Accueil"></a></h1>
                     {% include('inc/nav.html.twig') %}
                 {% endblock %}
             </header>
+            {% for label, messages in app.flashes %}
+                {%  for message in messages %}
+                    <div class="flash flash-{{ label }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor%}
             <main>
                 {% block body %}{% endblock %}
             </main>

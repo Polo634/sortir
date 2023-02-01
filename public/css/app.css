@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:wght@300&family=Dancing+Script&family=Moulpali&family=Oswald:wght@300;600&family=Roboto+Mono:ital,wght@1,100&display=swap');
-
 section {
     margin-bottom: 2rem;
 }
@@ -63,12 +61,17 @@ label
 {
     margin-right: 20px;
 }
-
 body{
+    height: 100vh;
     font-family: 'Garamond', sans-serif;
     font-size: 1.2em;
     margin: 0;
 }
+
+.logo{
+    margin:0;
+}
+
 .containerLogin{
     display: flex;
     justify-content: center;
@@ -131,4 +134,111 @@ input{
     color: red;
     font-weight: bold;
 }
+
+nav ul {
+     display: flex;
+     list-style: none;
+     padding-left: 0;
+     float: right;
+ }
+
+nav li {
+    margin-right: 1rem;
+}
+
+h2{
+    text-align: center;
+    max-width: 1000px;
+    padding-top: 5%;
+}
+
+button,
+.button {
+    display: inline-block;
+    background-color: lightgrey;
+    border-radius: 10px;
+    border: 4px double black;
+    color: black;
+    text-align: center;
+    font-size: 28px;
+    padding: 20px;
+    width: 200px;
+    margin: 5px;
+}
+button:hover,
+.button:hover{
+    background-color: black;
+    color: white;
+}
+
+.containerFormulaire{
+height: 40%;}
+
+.user-details-infos{
+height: auto;}
+
+.containerFormulaire,
+.user-details-infos{
+    font-size: 150%;
+    list-style: none;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5%;
+    margin-bottom: 0;
+    padding: 2%;
+    -moz-border-radius: 20px;
+    -webkit-border-radius: 20px;
+    border-radius: 20px;
+    background: rgba(190, 231, 241, 0.5);
+    width: 70%;
+    border: 1px solid black;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+a{
+    text-decoration: none;
+}
+
+.flash{
+    padding: 20px;
+    font-weight: bold;
+    font-size: 1.4rem;
+    margin: 5%;
+    border-radius: 5px;
+}
+
+.flash-success {
+    background-color: lawngreen;
+
+}
+
+img {
+    max-width: 15%;
+    height: auto;
+}
+.user-details.h2{
+    margin:auto;
+    padding: 2%;
+    -moz-border-radius: 20px;
+    -webkit-border-radius: 20px;
+    border-radius: 20px;
+    background: rgba(190, 231, 241, 0.5);
+    width: 300px;
+    height: auto;
+}
+
+.user-profil-h2
+{
+font-size: 200%;
+    text-align: center ;
+    margin:auto;
+    padding: 2%;
+    -moz-border-radius: 20px;
+    -webkit-border-radius: 20px;
+    border-radius: 20px;
+    background: rgba(190, 231, 241, 0.5);
+    width: 300px;
+    height: auto;
+}
+
 

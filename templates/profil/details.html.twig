@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+   Mon profil
+{% endblock %}
+
+{% block body %}
+
+    <div class="user-details">
+        {#  <div>
+        <img src="{{ asset('' ~ user.poster) }}" alt="{{ user.pseudo }}">
+    </div>#}
+
+        <h2 class="user-profil-h2">{{ app.user.pseudo }}</h2>
+
+        <ul class="user-details-infos">
+
+                <li>Prenom: {{ app.user.prenom }}</li>
+                <li>Nom: {{ app.user.nom }}</li>
+                <li>Téléphone : {{ app.user.telephone }}</li>
+                <li>Email : {{ app.user.mail }}</li>
+                <li>Campus : {{ app.user.campus.nom }}</li>
+
+        </ul>
+        <button><a href="{{ path('modifier', { id: app.user.id } ) }}" title="modifier">Modifier</a></button>
+    </div>
+
+{% endblock %}
+

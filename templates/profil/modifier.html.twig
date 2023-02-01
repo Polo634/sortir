@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h2>Modifier mon profil</h2>
+    <div class="containerFormulaire">
+       {{ form_start(form) }}
+
+       {{ form_widget(form) }}
+        <p>campus : {{ app.user.campus.nom }}</p>
+
+        <button>Enregistrer</button>
+       <input class=button type="button" value="Annuler" onclick="history.back()"  />
+
+       {{ form_end(form) }}
+   </div>
+{% endblock %}
+
+{% block title %}
+    Mon profil
+{% endblock %}
