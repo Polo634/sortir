@@ -6,6 +6,7 @@ use App\Entity\Sortie;
 use App\Models\Filtre;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use http\Env\Response;
 
 
 /**
@@ -81,5 +82,6 @@ class SortieRepository extends ServiceEntityRepository
         return $queryBuilder
             ->getQuery()->getResult();
     }
+
 
 }

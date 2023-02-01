@@ -76,9 +76,23 @@ Liste des sorties | {{ parent() }}
                     <td class="border border-dark">{{ sortie.dateLimiteInscription | date('d/m/y') }}</td>
                     <td class="border border-dark">{{ sortie.participants | length }}/{{ sortie.nbInscriptionsMax }}</td>
                     <td class="border border-dark">{{ sortie.etat.libelle }}</td>
-                    <td class="border border-dark">?</td>
+                    <td class="border border-dark">{{ app.user in sortie.participants ? 'x' : '' }}</td>
                     <td class="border border-dark">{{ sortie.organisateur.nom }}</td>
-                    <td class="border border-dark">Actions</td>
+                    <td class="border border-dark"><a href="">Afficher</a> -
+
+                        {% if sortie.etat.libelle == 'Ouverte'  and app.user not in sortie.participants  and app.user.id != sortie.organisateur.id %}
+
+                            <a href="{{ path('sortie_inscrire', {id: sortie.id}) }}">S'inscrire</a></td>
+
+                        {% elseif app.user in sortie.participants %}
+
+                             <a href="{{ path('sortie_desister', {id: sortie.id}) }}">Se Désister</a>
+
+                    {% elseif sortie.etat.libelle == 'Ouverte' and app.user.id == sortie.organisateur.id %}
+
+                         <a href="">Annuler</a>
+
+                    {%  endif %}
 
                 </tr>
                 </tbody>

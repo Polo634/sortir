@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:wght@300&family=Dancing+Script&family=Moulpali&family=Oswald:wght@300;600&family=Roboto+Mono:ital,wght@1,100&display=swap');
+
 section {
     margin-bottom: 2rem;
 }
@@ -61,6 +63,7 @@ label
 {
     margin-right: 20px;
 }
+
 body{
     height: 100vh;
     font-family: 'Garamond', sans-serif;
@@ -135,6 +138,13 @@ input{
     font-weight: bold;
 }
 
+.alert-succes{
+    color: white;
+    font-size: 1.6em;
+    height: 50px;
+    width: 100%;
+    background-color: green;
+}
 nav ul {
      display: flex;
      list-style: none;
@@ -242,3 +252,11 @@ font-size: 200%;
 }
 
 
+
+.alert-echec{
+    color: white;
+    font-size: 1.6em;
+    height: 50px;
+    width: 100%;
+    background-color: red
+}
