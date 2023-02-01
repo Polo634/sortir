@@ -1,0 +1,103 @@
+{% extends 'base.html.twig'%}
+
+{% block title %}
+    Afficher une sortie | {{ parent() }}
+{% endblock %}
+
+{% block body %}
+
+
+    <section class="left">
+        <div class="afficherSortie">
+        <label for="name">Nom de la sortie : </label>
+            {{ sortie.nom }}
+        </div>
+    <div class="afficherSortie">
+        <label for="dateSortie">Date et heure de la sortie : </label>
+        {{ sortie.dateHeureDebut | date('d/m/y H:i')}}
+    </div>
+
+    <div class="afficherSortie">
+        <label for="DateLimite">Date limite d'inscription : </label>
+        {{ sortie.dateLimiteInscription | date('d/m/y') }}
+    </div>
+
+    <div class="afficherSortie">
+        <label for="places">Nombre de places : </label>
+        {{ sortie.nbInscriptionsMax }}
+    </div>
+
+    <div class="afficherSortie">
+        <label for="durée">Durée : </label>
+        {{ sortie.duree }} minutes
+    </div>
+
+    <div class="afficherSortie">
+        <label for="Description">Description et infos : </label>
+        {{ sortie.infosSortie }}
+    </div>
+
+    </section>
+
+    <section class="right">
+
+    <div class="afficherSortie">
+        <label for="Campus">Campus : </label>
+        {{ sortie.campus.nom }}
+    </div>
+
+    <div class="afficherSortie">
+        <label for="Lieu">Lieu : </label>
+        {{ sortie.lieu.nom }}
+    </div>
+
+    <div class="afficherSortie">
+        <label for="Rue">Rue : </label>
+        {{ sortie.lieu.rue }}
+    </div>
+
+    <div class="afficherSortie">
+        <label for="CodePostal">Code postal : </label>
+        {{ sortie.lieu.ville.codePostal }}
+    </div>
+
+    <div class="afficherSortie">
+        <label for="latitude">Latitude : </label>
+        {{ sortie.lieu.latitude }}
+    </div>
+
+    <div class="afficherSortie">
+        <label for="longitude">Longitude : </label>
+        {{ sortie.lieu.longitude }}
+    </div>
+
+    </section>
+
+
+    <section class="tableau" >
+        <h2>Liste des participants inscrits : </h2>
+        <table class="table table-bordered border-primary">
+
+            <thead>
+            <tr>
+                <th scope="col" class="border border-dark">Pseudo</th>
+                <th scope="col" class="border border-dark">Nom</th>
+
+            </tr>
+            </thead>
+            <tbody>
+                {% for participant in sortie.participants %}
+            <tr>
+
+                <td class="border border-dark"><a href="#">{{ participant.pseudo }}  </a></td>
+                <td class="border border-dark">{{ participant.nom }}</td>
+
+            </tr>
+            </tbody>
+                {% endfor %}
+        </table>
+
+    </section>
+
+
+{% endblock %}
