@@ -2,10 +2,13 @@
 
 namespace App\Repository;
 
+
+use App\Entity\Participant;
 use App\Entity\Sortie;
 use App\Models\Filtre;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+
 
 
 /**
@@ -45,7 +48,7 @@ class SortieRepository extends ServiceEntityRepository
      *  récupère les sorties en fonction des filtres
      * @return Sortie[]
      */
-    public function findSearch(Filtre $filtre): array
+    public function findSearch(Filtre $filtre, Participant $user): array
     {
         $queryBuilder = $this
             ->createQueryBuilder('s')
@@ -66,20 +69,46 @@ class SortieRepository extends ServiceEntityRepository
                ->andWhere('s.nom LIKE :q')
                ->setParameter('q', "%{$filtre->q}%");
         }
-        if (!empty($filtre->firstDate)&&($filtre->lastDate)){
+        if (!empty($filtre->firstDate)){
             $queryBuilder
-                ->where('s.dateHeureDebut BETWEEN :firstDate AND :lastDate')
-                ->setParameter('firstDate', $filtre->firstDate->format('Y-m-d') . ' 00:00:00')
-                ->setParameter('lastDate', $filtre->lastDate->format('Y-m-d') . ' 23:59:59');
-        }elseif (!empty($filtre->firstDate) && empty($filtre->lastDate)){
-            $queryBuilder
-                ->where('s.dateHeureDebut BETWEEN :firstDate AND :lastDate')
-                ->setParameter('firstDate', $filtre->firstDate->format('Y-m-d') . ' 00:00:00')
-                ->setParameter('lastDate', new \DateTime('2030-12-31'));
+                ->andWhere('s.dateHeureDebut >= :firstDate ')
+                ->setParameter('firstDate', $filtre->firstDate);
+
         }
+
+        if (!empty($filtre->lastDate)){
+            $queryBuilder
+                ->andwhere('s.dateHeureDebut <= :lastDate')
+                ->setParameter('lastDate', $filtre->lastDate);
+        }
+
+          if ($filtre->organisateur){
+            $queryBuilder
+                ->andwhere('s.organisateur =:user')
+                ->setParameter('user',$user);
+        }
+          if($filtre->inscrit){
+              $queryBuilder
+                  ->andwhere(':user MEMBER OF s.participants')
+                  ->setParameter('user', $user);
+          }
+        if($filtre->pasInscrit){
+            $queryBuilder
+                ->andwhere(':user NOT MEMBER OF s.participants')
+                ->setParameter('user', $user);
+
+        }
+
+        if ($filtre->sortiesPassees){
+            $queryBuilder
+                ->andWhere('e.libelle = \'Passée\'');
+        }
+
 
         return $queryBuilder
             ->getQuery()->getResult();
     }
+
+
 
 }

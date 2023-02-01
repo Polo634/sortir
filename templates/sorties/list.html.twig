@@ -71,12 +71,12 @@ Liste des sorties | {{ parent() }}
                 {% for sortie in sorties %}
                 <tr>
 
-                    <td class="border border-dark">{{ sortie.nom }}</td>
+                    <td class="border border-dark"><a href={{ path('main_sortie_detail', {'id':sortie.id}) }}>  {{ sortie.nom }} </a></td>
                     <td class="border border-dark">{{ sortie.dateHeureDebut |date('d/m/y H:i') }}</td>
                     <td class="border border-dark">{{ sortie.dateLimiteInscription | date('d/m/y') }}</td>
                     <td class="border border-dark">{{ sortie.participants | length }}/{{ sortie.nbInscriptionsMax }}</td>
                     <td class="border border-dark">{{ sortie.etat.libelle }}</td>
-                    <td class="border border-dark">?</td>
+                    <td class="border border-dark">{{ app.user in sortie.participants ? 'x' : '' }}</td>
                     <td class="border border-dark">{{ sortie.organisateur.nom }}</td>
                     <td class="border border-dark">Actions</td>
 
