@@ -16,12 +16,22 @@
     </head>
     <body>
         <div class="container">
+
             <header>
                 {% block header %}
                     <h1>Sortir.com</h1>
                     {% include('inc/nav.html.twig') %}
                 {% endblock %}
             </header>
+
+                    {% for label, messages in app.flashes %}
+                    {% for message in messages %}
+                        <div class="alert-{{ label }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                    {% endfor %}
+
             <main>
                 {% block body %}{% endblock %}
             </main>

@@ -132,3 +132,18 @@ input{
     font-weight: bold;
 }
 
+.alert-succes{
+    color: white;
+    font-size: 1.6em;
+    height: 50px;
+    width: 100%;
+    background-color: green;
+}
+
+.alert-echec{
+    color: white;
+    font-size: 1.6em;
+    height: 50px;
+    width: 100%;
+    background-color: red
+}

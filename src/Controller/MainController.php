@@ -36,4 +36,16 @@ class MainController extends AbstractController
             ]);
     }
 
+    /**
+     * @Route ("/annuler/{id}", name="annuler_sortie")
+     */
+    /*
+    public function annuler($id, SortieRepository $sortieRepository){
+        $sortie=$sortieRepository->find($id);
+
+        return $this->render('sorties/annuler.html.twig',[
+            "sortie"=> $sortie
+        ]);
+    }
+*/
 }
