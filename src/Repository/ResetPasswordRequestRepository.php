@@ -19,6 +19,8 @@ use SymfonyCasts\Bundle\ResetPassword\Persistence\ResetPasswordRequestRepository
  */
 class ResetPasswordRequestRepository extends ServiceEntityRepository implements ResetPasswordRequestRepositoryInterface
 {
+    // fichier créé lors de la creation de mon authenthification sur comander, je n'ai rien modifié
+
     use ResetPasswordRequestRepositoryTrait;
 
     public function __construct(ManagerRegistry $registry)

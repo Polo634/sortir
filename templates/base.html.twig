@@ -23,8 +23,10 @@
                     {% include('inc/nav.html.twig') %}
                 {% endblock %}
             </header>
-            {% for label, messages in app.flashes %}
-                {%  for message in messages %}
+
+            {# le for ci-dessous permet de nous appliquer les messages add->flash mis coté controller #}
+                {% for label, messages in app.flashes %}
+                    {%  for message in messages %}
 
                     <div class="alert-{{ label }}">
                         {{ message }}

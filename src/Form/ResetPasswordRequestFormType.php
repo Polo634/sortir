@@ -10,6 +10,8 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 
 class ResetPasswordRequestFormType extends AbstractType
 {
+    // fichier créé lors de la creation de mon authenthification sur comander, je n'ai rien modifié à part les messages
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
