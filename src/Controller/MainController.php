@@ -3,11 +3,10 @@
 namespace App\Controller;
 
 
-use App\Entity\Sortie;
 use App\Form\FiltreType;
 use App\Models\Filtre;
-use App\Repository\CampusRepository;
 use App\Repository\SortieRepository;
+use App\Services\MajEtatService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -24,11 +23,13 @@ class MainController extends AbstractController
      */
 
     public function home(SortieRepository $sortieRepository,
-                         CampusRepository $campusRepository,
+                         MajEtatService $etatService,
                          Request $request): Response
     {
 
-        $campus = $campusRepository->findAll();
+        $etatService->majEtatSortie();
+        $etatService->majSortieNbInscrits();
+
 
         $filtre = new Filtre();
         $form = $this->createForm(FiltreType::class, $filtre);
@@ -36,10 +37,12 @@ class MainController extends AbstractController
         $sorties = $sortieRepository->findSearch($filtre, $this->getUser());
         return $this->render('sorties/list.html.twig', [
             "sorties" => $sorties,
-            "campus" => $campus,
             'form' => $form->createView(),
+
             ]);
+
     }
+
 
     /**
      * @Route("/sortie/detail/{id}", name="sortie_detail")
@@ -60,16 +63,5 @@ class MainController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route ("/annuler/{id}", name="annuler_sortie")
-     */
-    /*
-    public function annuler($id, SortieRepository $sortieRepository){
-        $sortie=$sortieRepository->find($id);
 
-        return $this->render('sorties/annuler.html.twig',[
-            "sortie"=> $sortie
-        ]);
-    }
-*/
 }

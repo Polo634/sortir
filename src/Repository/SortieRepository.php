@@ -8,7 +8,6 @@ use App\Entity\Sortie;
 use App\Models\Filtre;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use http\Env\Response;
 
 
 
@@ -54,7 +53,7 @@ class SortieRepository extends ServiceEntityRepository
         $queryBuilder = $this
             ->createQueryBuilder('s')
             ->join('s.etat', 'e')
-            ->andWhere('e.libelle != \'Historisée\'');
+            ->andWhere('e.libelle != \'Archivée\'');
 
 
         if (!empty($filtre->campus)){
@@ -110,7 +109,74 @@ class SortieRepository extends ServiceEntityRepository
             ->getQuery()->getResult();
     }
 
+    //cherche les sorties ouvertes
+        public function chercherSortieOuvertes(): array
+        {
 
+            $qb = $this
+                ->createQueryBuilder('s')
+                ->join('s.etat', 'e')
+                ->andWhere('e.libelle = \'Ouverte\'')
+                ->andWhere('s.dateLimiteInscription < CURRENT_DATE()');
+
+            return $qb->getQuery()->getResult();
+        }
+
+    //cherche les sorties clôturées
+    public function chercherSortieCloturees(): array
+    {
+
+        $qb = $this
+            ->createQueryBuilder('s')
+            ->join('s.etat', 'e')
+            ->andWhere('e.libelle = \'Clôturée\'')
+            ->andWhere('s.dateLimiteInscription < CURRENT_DATE()');
+
+        return $qb->getQuery()->getResult();
+    }
+
+
+    //cherche les sorties en cours
+    public function chercherSortieEnCours(): array
+    {
+
+
+        $qb = $this
+            ->createQueryBuilder('s')
+            ->join('s.etat', 'e')
+            ->andWhere('e.libelle = \'Activité en cours\'')
+            ->andWhere('DATE_ADD(s.dateHeureDebut, s.duree, \'MINUTE\') <= CURRENT_TIMESTAMP()');
+
+        return $qb->getQuery()->getResult();
+    }
+
+    //cherche les sorties passées
+    public function chercherSortiePassee(): array
+    {
+
+
+        $qb = $this
+            ->createQueryBuilder('s')
+            ->join('s.etat', 'e')
+            ->andWhere('e.libelle = \'Passée\'')
+            ->andWhere('DATE_ADD(s.dateHeureDebut, 1, \'MONTH\') > s.dateHeureDebut');
+
+        return $qb->getQuery()->getResult();
+    }
+
+    //cherche les sorties ouvertes
+    public function chercherSortieOuvertesPourNbInscrits(): array
+    {
+
+        $qb = $this
+            ->createQueryBuilder('s')
+            ->join('s.etat', 'e')
+            ->andWhere('e.libelle = \'Ouverte\'')
+            ->andWhere('SIZE(s.participants) >= s.nbInscriptionsMax');
+
+
+        return $qb->getQuery()->getResult();
+    }
 
 
 }

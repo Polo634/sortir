@@ -2,15 +2,11 @@
 
 namespace App\Controller;
 
-use App\Entity\Etat;
-use App\Entity\Participant;
-use App\Entity\Sortie;
+
 use App\Repository\EtatRepository;
-use App\Repository\ParticipantRepository;
 use App\Repository\SortieRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class SortieController extends AbstractController
@@ -61,13 +57,15 @@ class SortieController extends AbstractController
      *
      * @Route("/desister/{id}", name="sortie_desister", requirements={"id": "\d+"})
      */
-    public function desister($id,SortieRepository $sortieRepository, EntityManagerInterface $entityManager)
+    public function desister($id,SortieRepository $sortieRepository, EntityManagerInterface $entityManager, EtatRepository $etatRepository)
     {
         $sortie = $sortieRepository->find($id);
         $sortie -> removeParticipant($this->getUser());
         $etat = $sortie->getEtat()->getLibelle();
 
-        if($etat == 'Ouverte'  && ((new \DateTime('now')) <= $sortie->getDateLimiteInscription())){
+        if($etat == 'Ouverte'  | $etat == 'Clôturée' && ((new \DateTime('now')) <= $sortie->getDateLimiteInscription())){
+
+            $sortie ->setEtat($etatRepository->findOneBy(['libelle' => 'Ouverte']));
 
             $entityManager->persist($sortie);
             $entityManager->flush();
@@ -83,26 +81,8 @@ class SortieController extends AbstractController
         return $this->redirectToRoute('main_home');
     }
 
-    /**
-     *
-     * @Route("/annuler/{id}", name="sortie_annuler", requirements={"id": "\d+"})
-     */
-/*
-    public function annuler($id, SortieRepository $sortieRepository, Request $request): Response
-    {
-        $sortie = $sortieRepository->find($id);
 
-        $filtre = new Filtre();
-        $form = $this->createForm(FiltreType::class, $filtre);
-        $form->handleRequest($request);
-        $sorties = $sortieRepository->findSearch($filtre);
-        return $this->render('sorties/list.html.twig', [
-            "sorties" => $sorties,
-            "campus" => $campus,
-            'form' => $form->createView(),
-            ]);
-    }
 
-    }
-*/
+
+
 }
