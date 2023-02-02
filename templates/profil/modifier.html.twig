@@ -3,15 +3,33 @@
 {% block body %}
     <h2>Modifier mon profil</h2>
     <div class="containerFormulaire">
+
+        <div id="profile_pic">
+            <div id="profile_pic">
+                {% if app.user.photoProfil %}{# si le participant a deja sauvegardé une photo de profil on affiche celle la #}
+                    <img src="{{ asset('profil/photo/'~app.user.photoProfil) }}" alt="{{ app.user.pseudo }}">
+                {% else %}{# sinon on affiche la photo par defaut présente dan le dossier img #}
+                    <img src="{{ asset('img/photopardefaut.png') }}" alt="Photo par défaut">
+                {% endif %}
+            <a class="button" href="{{ path('photo_profil') }}">Modifier ma photo</a><br>
+
+
+        </div>
+
+
        {{ form_start(form) }}
 
        {{ form_widget(form) }}
+
         <p>campus : {{ app.user.campus.nom }}</p>
 
         <button>Enregistrer</button>
-       <input class=button type="button" value="Annuler" onclick="history.back()"  />
+
+        <input class=button type="button" value="Annuler" onclick="history.back()"  />
+
 
        {{ form_end(form) }}
+
    </div>
 {% endblock %}
 

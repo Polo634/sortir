@@ -25,9 +25,6 @@
             </header>
             {% for label, messages in app.flashes %}
                 {%  for message in messages %}
-                    <div class="flash flash-{{ label }}">
-                        {{ message }}
-                    </div>
 
                     <div class="alert-{{ label }}">
                         {{ message }}

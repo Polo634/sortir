@@ -32,7 +32,13 @@ class ProfilType extends AbstractType
                 'mapped' => false,
                 'first_options'  => ['label' => 'Nouveau mot de passe'],
                 'second_options' => ['label' => 'Confirmez le nouveau mot de passe'],
-            ]);}
+            ]);
+          /*  ->add('photo', FileType::class, [
+                'type' => File::class,
+                'required' => false,
+            ])*/
+
+;}
 
 
 

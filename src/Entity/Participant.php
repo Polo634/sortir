@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -62,6 +63,29 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
      *     maxMessage="Le nombre de caractères est limité à 80")
      */
     private $prenom;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $photoProfil;
+
+
+    //Cette propriété ne sert qu'à recevoir l'objet créé par Symfony lors de l'upload du fichier
+    //Et à faire la validation
+    /**
+     *
+     * @Assert\Image(
+     *     minWidth = 200,
+     *     maxWidth = 2000,minWidthMessage="la largeur minimale autorisée est de 200 pixels",
+     * maxWidthMessage="la largeur maximale autorisée est de 2000 pixels",)
+     *     (minHeight = 200,
+     *     maxHeight = 2000,maxHeightMessage="la hauteur maximale autorisée est de 2000 pixels",
+     * minHeightMessage="la hauteur minimale autorisée est de 200 pixels")
+     *     (maxSize = "20M",
+     * maxSizeMessage="Attention la photo ne doit pas dépasser 20MO")
+     *)
+     */
+    private $modifPhoto;
 
     /**
      * @ORM\Column(type="string",length=20 , nullable=true)
@@ -220,6 +244,34 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
         $this->prenom = $prenom;
 
         return $this;
+    }
+
+    public function getPhotoProfil(): ?string
+    {
+        return $this->photoProfil;
+    }
+
+    public function setPhotoProfil(?string $photoProfil): self
+    {
+        $this->photoProfil = $photoProfil;
+
+        return $this;
+    }
+
+    /**
+     * @return UploadedFile
+     */
+    public function getModifPhoto(): ?UploadedFile
+    {
+        return $this->modifPhoto;
+    }
+
+    /**
+     * @param UploadedFile $modifPhoto
+     */
+    public function setModifPhoto(?UploadedFile $modifPhoto): void
+    {
+        $this->modifPhoto = $modifPhoto;
     }
 
     public function getTelephone(): ?string

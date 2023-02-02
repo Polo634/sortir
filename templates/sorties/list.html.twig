@@ -77,7 +77,7 @@ Liste des sorties | {{ parent() }}
                     <td class="border border-dark">{{ sortie.participants | length }}/{{ sortie.nbInscriptionsMax }}</td>
                     <td class="border border-dark">{{ sortie.etat.libelle }}</td>
                     <td class="border border-dark">{{ app.user in sortie.participants ? 'x' : '' }}</td>
-                    <td class="border border-dark">{{ sortie.organisateur.nom }}</td>
+                    <td class="border border-dark"><a href={{ path('details', {'id':sortie.organisateur.id}) }}>{{ sortie.organisateur.nom }}</td>
                     <td class="border border-dark"><a href={{ path('main_sortie_detail', {'id':sortie.id}) }}> Afficher</a> -
 
                         {% if sortie.etat.libelle == 'Ouverte'  and app.user not in sortie.participants  and app.user.id != sortie.organisateur.id %}

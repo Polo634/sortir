@@ -1,5 +1,9 @@
 <nav>
     <ul>
+        {% if is_granted("ROLE_ADMIN") %} {# si la personne a le role d'admin #}
+            <li><a href="{{ path('details_villes') }}" title="Ville">Ville</a></li>
+            <li><a href="{{ path('details_campus') }}" title="Campus">Campus</a></li>
+        {% endif %}
 
         <li><a href="{{ path('main_home') }}" title="Accueil">Accueil</a></li>
         <li><a href="{{ path('details', { 'id': app.user.id } ) }}" title="Profil">Mon Profil</a></li>

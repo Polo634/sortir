@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h2>Modifier la photo de profil</h2>
+
+    {{ form(form) }}
+
+    <input class=button type="button" value="Annuler" onclick="history.back()"  />
+
+{% endblock %}
+
+{% block title %}Modifier la photo de profil{% endblock %}

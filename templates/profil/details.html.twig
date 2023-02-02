@@ -7,22 +7,28 @@
 {% block body %}
 
     <div class="user-details">
-        {#  <div>
-        <img src="{{ asset('' ~ user.poster) }}" alt="{{ user.pseudo }}">
-    </div>#}
 
-        <h2 class="user-profil-h2">{{ app.user.pseudo }}</h2>
 
+        <h2 class="user-profil-h2">{{ participant.pseudo }}</h2>
+
+        <div id="profile_pic">
+            {% if participant.photoProfil %}{# si le participant a deja sauvegardé une photo de profil on affiche celle la #}
+            <img src="{{ asset('profil/photo/'~participant.photoProfil) }}" alt="{{ participant.pseudo }}">
+            {% else %}{# sinon on affiche la photo par defaut présente dan le dossier img #}
+            <img src="{{ asset('img/photopardefaut.png') }}" alt="Photo par défaut">
+            {% endif %}
         <ul class="user-details-infos">
 
-                <li>Prenom: {{ app.user.prenom }}</li>
-                <li>Nom: {{ app.user.nom }}</li>
-                <li>Téléphone : {{ app.user.telephone }}</li>
-                <li>Email : {{ app.user.mail }}</li>
-                <li>Campus : {{ app.user.campus.nom }}</li>
+                <li>Prenom: {{ participant.prenom }}</li>
+                <li>Nom: {{ participant.nom }}</li>
+                <li>Téléphone : {{ participant.telephone }}</li>
+                <li>Email : {{ participant.mail }}</li>
+                <li>Campus : {{ participant.campus.nom }}</li>
 
         </ul>
-        <button><a href="{{ path('modifier', { id: app.user.id } ) }}" title="modifier">Modifier</a></button>
+            {% if participant==app.user %}{# si le profil affiché est bien celui de l'utilisateur connesté on affiche le bonton modifier #}
+        <button><a href="{{ path('modifier', { id: participant.id } ) }}" title="modifier">Modifier</a></button>
+            {% endif %}
     </div>
 
 {% endblock %}

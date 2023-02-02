@@ -137,15 +137,30 @@ input{
     color: red;
     font-weight: bold;
 }
-
-.alert-succes{
+.alert-echec{
     color: white;
     font-size: 1.6em;
     height: 50px;
     width: 100%;
-    background-color: green;
+    background-color: red;
+    padding-left: 10px;
 }
+
+.alert-succes{
+    color: white;
+    font-size: 1.6em;
+    height: auto;
+    width: 100%;
+    background-color: green;
+    font-weight: bold;
+    margin: 3%;
+    padding-left: 10px;
+    border-radius: 5px;
+}
+
+nav,
 nav ul {
+    margin-bottom: 10px;
      display: flex;
      list-style: none;
      padding-left: 0;
@@ -209,20 +224,7 @@ a{
     text-decoration: none;
 }
 
-.flash{
-    padding: 20px;
-    font-weight: bold;
-    font-size: 1.4rem;
-    margin: 5%;
-    border-radius: 5px;
-}
-
-.flash-success {
-    background-color: lawngreen;
-
-}
-
-img {
+.logo img {
     max-width: 15%;
     height: auto;
 }
@@ -251,12 +253,9 @@ font-size: 200%;
     height: auto;
 }
 
-
-
-.alert-echec{
-    color: white;
-    font-size: 1.6em;
-    height: 50px;
-    width: 100%;
-    background-color: red
+.simulation{
+margin-left: 10%;
+display: inline-block;
+height: auto;
+width: 1000px;
 }
