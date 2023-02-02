@@ -30,7 +30,7 @@ class Sortie
 
     /**
      * @ORM\Column(type="datetime")
-     * @Assert\DateTime
+     *
      */
     private ?\DateTimeInterface $dateHeureDebut;
 

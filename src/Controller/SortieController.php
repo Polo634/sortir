@@ -2,16 +2,15 @@
 
 namespace App\Controller;
 
+
 use App\Entity\Etat;
 use App\Entity\Participant;
 use App\Entity\Sortie;
 use App\Form\AnnuleSortieType;
 use App\Repository\EtatRepository;
-use App\Repository\ParticipantRepository;
 use App\Repository\SortieRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -72,17 +71,19 @@ class SortieController extends AbstractController
      *
      * @Route("/desister/{id}", name="sortie_desister", requirements={"id": "\d+"})
      */
-    public function desister($id,SortieRepository $sortieRepository, EntityManagerInterface $entityManager)
+    public function desister($id,SortieRepository $sortieRepository, EntityManagerInterface $entityManager, EtatRepository $etatRepository)
     {
         // on recupere la sortie où on veut se désister via son id, puis meme méthode que pour s'inscrire
             $sortie = $sortieRepository->find($id);
             $sortie -> removeParticipant($this->getUser());
             $etat = $sortie->getEtat()->getLibelle();
 
-            if($etat == 'Ouverte'  && ((new \DateTime('now')) <= $sortie->getDateLimiteInscription())){
+        if($etat == 'Ouverte'  | $etat == 'Clôturée' && ((new \DateTime('now')) <= $sortie->getDateLimiteInscription())){
 
-                $entityManager->persist($sortie);
-                $entityManager->flush();
+            $sortie ->setEtat($etatRepository->findOneBy(['libelle' => 'Ouverte']));
+
+            $entityManager->persist($sortie);
+            $entityManager->flush();
 
                 $this->addFlash('succes', 'Vous avez été désinscrit avec succès, à bientot !');
              }
