@@ -79,7 +79,7 @@ Liste des sorties | {{ parent() }}
 
                     {# condition ternaire ci-dessous pour afficher une "x" ou non si le participant est inscrit dans la sortie #}
                     <td class="border border-dark">{{ app.user in sortie.participants ? 'x' : '' }}</td>
-                    <td class="border border-dark">{{ sortie.organisateur.nom }}</td>
+
 
                     {# le {id::sortie.id} nous permet de récuperer via l'URL l'id de la sortie concernée et la traiter coté controller #}
                     <td class="border border-dark"><a href={{ path('details', {'id':sortie.organisateur.id}) }}>{{ sortie.organisateur.nom }}</td>

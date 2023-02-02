@@ -11,6 +11,7 @@ use App\Repository\EtatRepository;
 use App\Repository\SortieRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -127,7 +128,7 @@ class SortieController extends AbstractController
         }
         return $this->render('sorties/annuler.html.twig',[
             "sortie"=> $sortie,
-            'form' => $form->createView(),
+            'form' => $form->createView()
         ]);
     }
 }
