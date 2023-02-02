@@ -25,6 +25,10 @@ use SymfonyCasts\Bundle\ResetPassword\ResetPasswordHelperInterface;
  */
 class ResetPasswordController extends AbstractController
 {
+    // fichier créé via ma demande sur comander, je n'ai rien modifié ci-dessous
+    // commande à mettre dans comander pour récuperer le mail envoyé lors du mot de passe oublié:
+    //php bin/console messenger:consume async
+
     use ResetPasswordControllerTrait;
 
     private ResetPasswordHelperInterface $resetPasswordHelper;

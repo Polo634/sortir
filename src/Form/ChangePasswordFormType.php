@@ -12,6 +12,8 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 
 class ChangePasswordFormType extends AbstractType
 {
+    // fichier créé lors de la creation de mon authenthification sur comander, je n'ai rien modifié
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder

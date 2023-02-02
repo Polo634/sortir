@@ -76,8 +76,12 @@ Liste des sorties | {{ parent() }}
                     <td class="border border-dark">{{ sortie.dateLimiteInscription | date('d/m/y') }}</td>
                     <td class="border border-dark">{{ sortie.participants | length }}/{{ sortie.nbInscriptionsMax }}</td>
                     <td class="border border-dark">{{ sortie.etat.libelle }}</td>
+
+                    {# condition ternaire ci-dessous pour afficher une "x" ou non si le participant est inscrit dans la sortie #}
                     <td class="border border-dark">{{ app.user in sortie.participants ? 'x' : '' }}</td>
                     <td class="border border-dark">{{ sortie.organisateur.nom }}</td>
+
+                    {# le {id::sortie.id} nous permet de récuperer via l'URL l'id de la sortie concernée et la traiter coté controller #}
                     <td class="border border-dark"><a href={{ path('main_sortie_detail', {'id':sortie.id}) }}> Afficher</a> -
 
                         {% if sortie.etat.libelle == 'Ouverte'  and app.user not in sortie.participants  and app.user.id != sortie.organisateur.id %}
@@ -90,7 +94,7 @@ Liste des sorties | {{ parent() }}
 
                     {% elseif sortie.etat.libelle == 'Ouverte' and app.user.id == sortie.organisateur.id %}
 
-                         <a href="">Annuler</a>
+                         <a href="{{ path('annuler_sortie', {id: sortie.id}) }}">Annuler</a>
 
                     {%  endif %}
 

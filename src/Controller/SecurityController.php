@@ -12,6 +12,9 @@ class SecurityController extends AbstractController
     /**
      * @Route("/", name="app_login")
      */
+
+    // fichier créé lors de la creation de mon authenthification sur comander, je n'ai rien modifié à part la route
+
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
         // if ($this->getUser()) {

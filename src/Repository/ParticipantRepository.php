@@ -62,11 +62,12 @@ class ParticipantRepository extends ServiceEntityRepository implements PasswordU
     {
         $entityManager = $this->getEntityManager();
 
-        return $entityManager->createQuery(
-            'SELECT u
-                FROM App\Entity\Participant u
-                WHERE u.pseudo = :query
-                OR u.mail = :query'
+        //modification pour récupérer le pseudo ou mail afin de s'identifier par l'un ou l'autre sur la meme case
+            return $entityManager->createQuery(
+                'SELECT u
+                    FROM App\Entity\Participant u
+                    WHERE u.pseudo = :query
+                    OR u.mail = :query'
         )
             ->setParameter('query', $pseudoOuMail)
             ->getOneOrNullResult();

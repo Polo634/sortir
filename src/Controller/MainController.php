@@ -4,10 +4,12 @@ namespace App\Controller;
 
 
 use App\Entity\Sortie;
+use App\Form\AnnuleSortieType;
 use App\Form\FiltreType;
 use App\Models\Filtre;
 use App\Repository\CampusRepository;
 use App\Repository\SortieRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -60,16 +62,4 @@ class MainController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route ("/annuler/{id}", name="annuler_sortie")
-     */
-    /*
-    public function annuler($id, SortieRepository $sortieRepository){
-        $sortie=$sortieRepository->find($id);
-
-        return $this->render('sorties/annuler.html.twig',[
-            "sortie"=> $sortie
-        ]);
-    }
-*/
 }
