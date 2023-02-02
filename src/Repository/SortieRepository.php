@@ -130,7 +130,9 @@ class SortieRepository extends ServiceEntityRepository
             ->createQueryBuilder('s')
             ->join('s.etat', 'e')
             ->andWhere('e.libelle = \'Clôturée\'')
-            ->andWhere('s.dateLimiteInscription < CURRENT_DATE()');
+            ->andWhere('s.dateHeureDebut < DATE_ADD(s.dateHeureDebut, s.duree, \'MINUTE\')')
+            ->andWhere('CURRENT_TIMESTAMP() < DATE_ADD(s.dateHeureDebut, s.duree, \'MINUTE\')');
+
 
         return $qb->getQuery()->getResult();
     }
@@ -145,7 +147,7 @@ class SortieRepository extends ServiceEntityRepository
             ->createQueryBuilder('s')
             ->join('s.etat', 'e')
             ->andWhere('e.libelle = \'Activité en cours\'')
-            ->andWhere('DATE_ADD(s.dateHeureDebut, s.duree, \'MINUTE\') <= CURRENT_TIMESTAMP()');
+            ->andWhere('CURRENT_TIMESTAMP() > DATE_ADD(s.dateHeureDebut, s.duree, \'MINUTE\')');
 
         return $qb->getQuery()->getResult();
     }
@@ -159,7 +161,7 @@ class SortieRepository extends ServiceEntityRepository
             ->createQueryBuilder('s')
             ->join('s.etat', 'e')
             ->andWhere('e.libelle = \'Passée\'')
-            ->andWhere('DATE_ADD(s.dateHeureDebut, 1, \'MONTH\') > s.dateHeureDebut');
+            ->andWhere('CURRENT_TIMESTAMP() > DATE_ADD(s.dateHeureDebut, 1, \'MONTH\')');
 
         return $qb->getQuery()->getResult();
     }
